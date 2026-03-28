@@ -1,12 +1,11 @@
 {
   "name": "vrtx",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "web:dev": "npm run dev --workspace=web",
+    "api:dev": "npm run start:dev --workspace=api"
   }
 }
