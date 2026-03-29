@@ -2,26 +2,18 @@
 
 ## Summary
 Implement the database model in small, safe steps while keeping the current API working after every migration. Each step adds one entity at a time with its schema, Nest module, service, controller, DTOs, and migration before moving to the next entity.
-
-Chosen direction:
-- Use UUID primary keys for all tables, generated automatically by the database
-- Use UUID foreign keys for all relationships
-- Do not add Drizzle `relations(...)` in this phase
-- Keep timestamps minimal rather than adding them to every table
-- Include stronger uniqueness and explicit foreign-key delete rules where appropriate
-- Skip both unit and e2e testing for now
+This phase covers schema, modules, services, controllers, DTOs, and migrations only. Testing and Drizzle relation helpers are deferred.
 
 ## Public Schema / Interface Decisions
 - Each table uses a UUID `id` column as its primary key, generated automatically by the database
 - All foreign keys use UUID columns
-- Column naming:
+- Use these names where applicable:
   - `lodges.keeper_id`
   - `tours.created_by`
   - `bookings.booker_id`
-- Table naming:
   - `tour_stages`
   - `bed_reservations`
-- Field shape:
+- Target fields by table:
   - `users`: `email`, password hash field, `role`, `is_confirmed`
   - `lodges`: `name`, `country`, `keeper_id`, `slug`
   - `tours`: `name`, `slug`, `created_by`
@@ -51,6 +43,7 @@ Chosen direction:
 - Use `created_by` as the user foreign key.
 - Add `name` and `slug`.
 - Add uniqueness on `name` and `slug`.
+- Add explicit foreign-key delete behavior.
 
 4. **Stages**
 - Add `stages` after `lodges`.
@@ -62,7 +55,7 @@ Chosen direction:
 - Add `tour_stages` after both `tours` and `stages`.
 - Include `tour_id`, `stage_id`, and `order`.
 - Keep it as its own module so stage linking can be migrated independently.
-- Add uniqueness rules during implementation if ordering per tour must be enforced immediately.
+- Add uniqueness rules for ordering per tour if they are required in the first implementation.
 
 6. **Rooms**
 - Add `rooms` after `lodges`.
@@ -103,7 +96,6 @@ Chosen direction:
 ## Verification For This Phase
 - After each step, run in `apps/api`:
   - `npm run build`
-- Defer all unit and e2e testing to a later phase.
 - Use build success and successful migration application as the acceptance check for each incremental step.
 
 ## Assumptions And Defaults
