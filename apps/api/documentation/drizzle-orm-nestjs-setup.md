@@ -1,64 +1,39 @@
 # Drizzle ORM Setup for `apps/api`
 
 ## Summary
-This document describes how to add Drizzle ORM to the NestJS API in `apps/api` using PostgreSQL. The setup uses Nest's configuration system for environment variables, a dedicated database module for dependency injection, and `drizzle-kit` for schema migrations.
+This document describes how to add Drizzle ORM to the NestJS API in `apps/api` using PostgreSQL, a dedicated database module, and `drizzle-kit` migrations.
+
+Environment variable validation is documented separately in:
+- `documentation/env-variable-validation-nestjs-joi.md`
 
 ## Dependencies To Install
-Run these commands from the repo root:
+Run these commands from `apps/api`:
 
 ```bash
-npm install --workspace=api drizzle-orm pg @nestjs/config joi
-npm install --workspace=api -D drizzle-kit @types/pg
+npm install drizzle-orm pg dotenv
+npm install -D drizzle-kit @types/pg
 ```
 
 ### Why these packages are needed
 - `drizzle-orm`: the ORM itself, providing typed schema definitions and queries.
 - `pg`: the PostgreSQL driver used by Node.js at runtime.
-- `@nestjs/config`: integrates environment variables into NestJS through dependency injection.
-- `joi`: validates required environment variables during startup.
+- `dotenv`: loads `.env` for tooling like `drizzle-kit` before Nest bootstraps.
 - `drizzle-kit`: CLI tool for generating and applying database migrations.
 - `@types/pg`: TypeScript typings for the PostgreSQL driver.
 
 ## Environment Variables
-Create `apps/api/.env` with at least:
+Create `.env` with at least:
 
 ```env
-PORT=3000
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/vrtx
-NODE_ENV=development
-```
-
-Optional split variables if preferred:
-
-```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=vrtx
-DB_USER=postgres
-DB_PASSWORD=postgres
 ```
 
 ### Why these variables are needed
 - `DATABASE_URL`: used by the application and Drizzle tooling to connect to PostgreSQL.
-- `PORT`: already used by the NestJS bootstrap to decide which port the API listens on.
-- `NODE_ENV`: helps standardize environment-specific config behavior.
 
 ## NestJS Application Configuration
 
-### 1. Add `ConfigModule`
-Update the root module to load environment variables globally.
-
-Recommended approach:
-- Import `ConfigModule.forRoot()` in `AppModule`
-- Set `isGlobal: true`
-- Add Joi validation for `PORT`, `NODE_ENV`, and `DATABASE_URL`
-
-Why:
-- This keeps config centralized.
-- It avoids direct `process.env` access throughout the codebase.
-- Validation catches misconfiguration at startup instead of later at runtime.
-
-### 2. Create a database module
+### 1. Create a database module
 Add a small infrastructure layer such as:
 - `src/database/database.module.ts`
 - `src/database/database.provider.ts`
@@ -69,9 +44,9 @@ Why:
 - Makes the Drizzle client injectable through Nest's dependency injection system.
 - Gives Drizzle and the migration tool one shared schema entrypoint.
 
-### 3. Create a Drizzle provider
+### 2. Create a Drizzle provider
 Inside the database provider:
-- Read `DATABASE_URL` from `ConfigService`
+- Read `DATABASE_URL` from configuration
 - Create a PostgreSQL client or pool using `pg`
 - Create a Drizzle instance from that connection
 - Export it with a provider token such as `DRIZZLE_DB`
@@ -80,14 +55,15 @@ Why:
 - This is how Drizzle becomes available to Nest services.
 - A provider token keeps the integration explicit and easy to test.
 
-### 4. Import the database module into `AppModule`
+### 3. Import the database module into `AppModule`
 Why:
 - Makes the shared database client available across the application.
 - Keeps future feature modules simple.
 
 ## Drizzle Kit Configuration
 
-Create `apps/api/drizzle.config.ts` with:
+Create `drizzle.config.ts` with:
+- `import 'dotenv/config'` at the top of the file
 - `dialect: 'postgresql'`
 - `schema: './src/database/schema.ts'`
 - `out: './drizzle'`
@@ -95,9 +71,10 @@ Create `apps/api/drizzle.config.ts` with:
 
 Why:
 - `drizzle-kit` needs to know where the schema lives, where to write migrations, and how to connect to the database.
+- `dotenv/config` ensures `DATABASE_URL` is available when the Drizzle config file is evaluated by the CLI.
 
 ## Package Scripts
-Add these scripts to `apps/api/package.json`:
+Add these scripts to `package.json`:
 
 ```json
 {
