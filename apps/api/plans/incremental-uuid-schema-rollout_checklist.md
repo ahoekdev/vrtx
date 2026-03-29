@@ -3,12 +3,9 @@
 ## Global Decisions
 - [ ] Use UUID primary keys for all tables, generated automatically by the database
 - [ ] Use UUID foreign keys for all relationships
-- [ ] Use `tour_stages` and `bed_reservations` as table names
 - [ ] Do not add Drizzle `relations(...)` in this phase
-- [ ] Keep `date` and `half_board` on `bed_reservations`
 - [ ] Keep timestamps minimal
 - [ ] Add uniqueness and explicit foreign-key delete rules where appropriate
-- [ ] Keep `stages.duration` and `stages.distance`
 - [ ] Skip unit and e2e testing for this phase
 
 ## Users

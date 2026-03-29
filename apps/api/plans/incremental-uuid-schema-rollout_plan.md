@@ -6,12 +6,9 @@ Implement the database model in small, safe steps while keeping the current API 
 Chosen direction:
 - Use UUID primary keys for all tables, generated automatically by the database
 - Use UUID foreign keys for all relationships
-- Use `tour_stages` and `bed_reservations` as table names
 - Do not add Drizzle `relations(...)` in this phase
-- Keep `date` and `half_board` on `bed_reservations`
 - Keep timestamps minimal rather than adding them to every table
 - Include stronger uniqueness and explicit foreign-key delete rules where appropriate
-- Keep `stages.duration` and `stages.distance`
 - Skip both unit and e2e testing for now
 
 ## Public Schema / Interface Decisions
