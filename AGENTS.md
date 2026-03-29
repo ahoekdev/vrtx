@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-This repository is a small npm workspace with two apps under `apps/`. `apps/api` contains the NestJS backend; application code lives in `apps/api/src`, unit tests sit beside source files as `*.spec.ts`, and end-to-end tests live in `apps/api/test`. `apps/web` contains the Astro frontend; routes live in `apps/web/src/pages` and static assets live in `apps/web/public`. Keep planning or setup notes in `documentation/`.
+This repository is a small npm workspace with two apps under `apps/`. `apps/api` contains the NestJS backend; application code lives in `apps/api/src`, unit tests sit beside source files as `*.spec.ts`, and end-to-end tests live in `apps/api/test`. `apps/web` contains the Astro frontend; routes live in `apps/web/src/pages` and static assets live in `apps/web/public`. Keep API-specific planning or setup notes in `apps/api/documentation/`.
 
 ## Build, Test, and Development Commands
 Install dependencies from the repo root with `npm install`. Use `npm run api:dev` to start the Nest API in watch mode and `npm run web:dev` to run the Astro dev server.
@@ -28,4 +28,4 @@ The API uses Jest for both unit and e2e tests. Add unit coverage for service and
 Recent commits use short, imperative, lowercase subjects such as `update root package json with app related scripts`. Keep commits focused and descriptive. PRs should explain the change, note affected workspace(s), link the relevant issue when available, and include screenshots or local verification steps for UI changes.
 
 ## Configuration Tips
-The API reads `PORT` already and planned database work documents `DATABASE_URL` in `documentation/drizzle-orm-nestjs-setup.md`. Put local secrets in `apps/api/.env` and do not commit them.
+The API reads `PORT` already and planned database work documents `DATABASE_URL` in `apps/api/documentation/drizzle-orm-nestjs-setup.md`. Put local secrets in `apps/api/.env` and do not commit them.
