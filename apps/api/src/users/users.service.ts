@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { users } from '../database/schemas/users.schema';
+import { CreateUserDto } from './dto/create-user.dto';
 
 const publicUserFields = {
   id: users.id,
@@ -19,10 +20,10 @@ export class UsersService {
     return this.databaseService.db.select(publicUserFields).from(users);
   }
 
-  async create(email: string) {
+  async create(body: CreateUserDto) {
     const [user] = await this.databaseService.db
       .insert(users)
-      .values({ email })
+      .values({ ...body })
       .returning(publicUserFields);
 
     return user;
