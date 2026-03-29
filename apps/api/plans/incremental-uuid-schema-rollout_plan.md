@@ -86,17 +86,18 @@ This phase covers schema, modules, services, controllers, DTOs, and migrations o
   2. Export it from `src/database/schema.ts`.
   3. Add the Nest module, service, controller, and DTOs.
   4. Generate a new migration.
-  5. Apply the migration.
+  5. Hand the migration to the user to apply locally.
   6. Run a build check before moving on.
 - Do not combine multiple entities into one migration step.
 - Do not add a foreign key before its parent table exists.
 - Keep existing routes working while expanding `users`.
 - Introduce new feature routes only after their table migration is complete.
+- Any database migration command must be run by the user, not by the agent.
 
 ## Verification For This Phase
 - After each step, run in `apps/api`:
   - `npm run build`
-- Use build success and successful migration application as the acceptance check for each incremental step.
+- Use build success and user-confirmed migration application as the acceptance check for each incremental step.
 
 ## Assumptions And Defaults
 - UUIDs are canonical across the whole schema.

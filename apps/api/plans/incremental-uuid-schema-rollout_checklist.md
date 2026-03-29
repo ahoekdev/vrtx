@@ -16,7 +16,7 @@
 - [ ] Export the updated table from `src/database/schema.ts`
 - [ ] Add or update module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Lodges
@@ -29,7 +29,7 @@
 - [ ] Export from `src/database/schema.ts`
 - [ ] Add module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Tours
@@ -41,7 +41,7 @@
 - [ ] Export from `src/database/schema.ts`
 - [ ] Add module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Stages
@@ -53,7 +53,7 @@
 - [ ] Export from `src/database/schema.ts`
 - [ ] Add module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Tour Stages
@@ -65,7 +65,7 @@
 - [ ] Export from `src/database/schema.ts`
 - [ ] Add module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Rooms
@@ -76,7 +76,7 @@
 - [ ] Export from `src/database/schema.ts`
 - [ ] Add module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Beds
@@ -88,7 +88,7 @@
 - [ ] Export from `src/database/schema.ts`
 - [ ] Add module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Bookings
@@ -98,7 +98,7 @@
 - [ ] Export from `src/database/schema.ts`
 - [ ] Add module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Bed Reservations
@@ -111,7 +111,7 @@
 - [ ] Export from `src/database/schema.ts`
 - [ ] Add module, service, controller, and DTOs
 - [ ] Generate migration
-- [ ] Apply migration
+- [ ] User applies migration locally
 - [ ] Run `npm run build`
 
 ## Final Follow-Up Phase
@@ -119,3 +119,4 @@
 - [ ] Add e2e tests
 - [ ] Revisit whether to add Drizzle `relations(...)`
 - [ ] Revisit whether `lodges.location` should be added
+- [ ] Keep database migration execution as a user-run step
