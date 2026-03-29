@@ -1,0 +1,1 @@
+// Store separate schemas inside the schemas folder and import them here
