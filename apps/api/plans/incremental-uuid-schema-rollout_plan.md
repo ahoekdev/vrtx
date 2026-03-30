@@ -85,14 +85,15 @@ This phase covers schema, modules, services, controllers, DTOs, and migrations o
   1. Add or update the Drizzle table schema.
   2. Export it from `src/database/schema.ts`.
   3. Add the Nest module, service, controller, and DTOs.
-  4. Generate a new migration.
-  5. Hand the migration to the user to apply locally.
-  6. Run a build check before moving on.
+  4. Run a build check before moving on.
+  5. Wait for user review before generating a migration.
+  6. Hand the migration to the user to apply locally after it has been generated.
 - Do not combine multiple entities into one migration step.
 - Do not add a foreign key before its parent table exists.
 - Keep existing routes working while expanding `users`.
 - Introduce new feature routes only after their table migration is complete.
 - Any database migration command must be run by the user, not by the agent.
+- Migration files should not be generated until the user has reviewed the code changes for that step.
 
 ## Verification For This Phase
 - After each step, run in `apps/api`:
