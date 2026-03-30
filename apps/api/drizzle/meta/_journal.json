@@ -43,6 +43,13 @@
       "when": 1774849137903,
       "tag": "0005_adorable_korath",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1774849920257,
+      "tag": "0006_right_taskmaster",
+      "breakpoints": true
     }
   ]
 }
