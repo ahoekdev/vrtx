@@ -50,6 +50,13 @@
       "when": 1774849920257,
       "tag": "0006_right_taskmaster",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1774850489514,
+      "tag": "0007_fresh_grim_reaper",
+      "breakpoints": true
     }
   ]
 }
