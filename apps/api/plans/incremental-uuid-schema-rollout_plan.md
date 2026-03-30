@@ -12,7 +12,7 @@ This phase covers schema, modules, services, controllers, DTOs, and migrations o
   - `tours.created_by`
   - `bookings.booker_id`
   - `tour_stages`
-  - `bed_reservations`
+  - `reservations`
 - Target fields by table:
   - `users`: `email`, password hash field, `role`, `is_confirmed`
   - `lodges`: `name`, `country`, `keeper_id`, `slug`
@@ -21,7 +21,7 @@ This phase covers schema, modules, services, controllers, DTOs, and migrations o
   - `rooms`: `name`, `price`, `lodge_id`
   - `beds`: `order`, `placement`, `room_id`
   - `bookings`: `comments`, `booker_id`
-  - `bed_reservations`: `date`, `half_board`, `bed_id`, `booking_id`
+  - `reservations`: `date`, `half_board`, `bed_id`, `booking_id`
 
 ## Rollout Sequence
 1. **Users**
@@ -74,8 +74,8 @@ This phase covers schema, modules, services, controllers, DTOs, and migrations o
 - Include `comments`.
 - Keep bookings lightweight, with scheduling details handled by reservations.
 
-9. **Bed Reservations**
-- Add `bed_reservations` last, after both `beds` and `bookings`.
+9. **Reservations**
+- Add `reservations` last, after both `beds` and `bookings`.
 - Include `date`, `half_board`, `bed_id`, and `booking_id`.
 - Add uniqueness on `(bed_id, date)`.
 - Add explicit delete behavior for `booking_id`.

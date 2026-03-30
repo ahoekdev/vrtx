@@ -101,8 +101,8 @@
 - [ ] User applies migration locally
 - [ ] Run `npm run build`
 
-## Bed Reservations
-- [ ] Add `bed_reservations` table
+## Reservations
+- [ ] Add `reservations` table
 - [ ] Add fields: `date`, `half_board`, `bed_id`, `booking_id`
 - [ ] Add foreign key to beds
 - [ ] Add foreign key to bookings
