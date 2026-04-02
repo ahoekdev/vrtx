@@ -1,0 +1,92 @@
+Table users {
+  id SERIAL [PK] 
+  created_at TIMESTAMP
+  updated_at TIMESTAMP
+  username VARCHAR(30)
+  password VARCHAR(50)
+  email VARCHAR(40) 
+  role VARCHAR(10) // 'user', 'owner'
+}
+
+Table lodges {
+  id SERIAL [PK] 
+  created_at TIMESTAMP 
+  updated_at TIMESTAMP 
+  name VARCHAR(40) 
+  country VARCHAR(2)
+  location POINT 
+  owner INTEGER 
+}
+
+Table stages {
+  id SERIAL [PK]
+  from_lodge_id INTEGER 
+  to_lodge_id INTEGER 
+  duration INTEGER 
+  distance INTEGER
+}
+
+Table stages_tours {
+  id SERIAL [PK]
+  tour_id INTEGER 
+  stage_id INTEGER 
+  order INTEGER
+}
+
+Table tours {
+  id SERIAL [PK]
+  created_at TIMESTAMP 
+  created_by INTEGER 
+}
+
+Table rooms {
+  id SERIAL [PK]
+  created_at TIMESTAMP  
+  lodge_id INTEGER 
+}
+
+Table beds {
+  id SERIAL [PK] 
+  created_at TIMESTAMP 
+  room_id INTEGER 
+  order INTEGER 
+  placement VARCHAR(7) // 'start', 'end', 'between'
+}
+
+Table reservations {
+  id SERIAL [PK] 
+  booking_id INTEGER 
+  bed_id INTEGER 
+}
+
+Table bookings {
+  id SERIAL [PK] 
+  created_at TIMESTAMP 
+  updated_at TIMESTAMP 
+  user_id INTEGER 
+  date DATE 
+  half_board BOOL 
+  comments VARCHAR(400)
+}
+
+Ref: "lodges"."owner" < "users"."id"
+
+Ref: "stages"."from_lodge_id" < "lodges"."id"
+
+Ref: "stages"."to_lodge_id" < "lodges"."id"
+
+Ref: "stages_tours"."stage_id" < "stages"."id"
+
+Ref: "stages_tours"."tour_id" < "tours"."id"
+
+Ref: "bookings"."user_id" < "users"."id"
+
+Ref: "rooms"."lodge_id" < "lodges"."id"
+
+Ref: "beds"."room_id" < "rooms"."id"
+
+Ref: "reservations"."bed_id" < "beds"."id"
+
+Ref: "reservations"."booking_id" < "bookings"."id"
+
+Ref: "tours"."created_by" < "users"."id"
