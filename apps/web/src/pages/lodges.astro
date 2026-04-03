@@ -22,23 +22,21 @@ try {
 ---
 
 <BaseLayout title="Lodges">
-	<h1>Lodges</h1>
+  <h1>Lodges</h1>
 
-	{
-		lodgesLoadError ? (
-			<p>Unable to load lodges right now.</p>
-		) : lodges.length === 0 ? (
-			<p>No lodges found.</p>
-		) : (
-			<ul>
-				{
-					lodges.map((lodge) => (
-						<li>
-							<strong>{lodge.name}</strong> <span>{lodge.country}</span>
-						</li>
-					))
-				}
-			</ul>
-		)
-	}
+  {
+    lodgesLoadError ? (
+      <p>Unable to load lodges right now.</p>
+    ) : lodges.length === 0 ? (
+      <p>No lodges found.</p>
+    ) : (
+      <ul>
+        {lodges.map((lodge) => (
+          <li>
+            <strong>{lodge.name}</strong> <span>{lodge.country}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
 </BaseLayout>
