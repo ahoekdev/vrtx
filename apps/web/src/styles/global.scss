@@ -1,3 +1,9 @@
 @use 'webcoreui/styles' as *;
 
-@include setup();
+@include setup((
+  theme: 'light'
+));
+
+button {
+  font-family: inherit;
+}

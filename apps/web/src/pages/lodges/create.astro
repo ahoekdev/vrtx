@@ -29,11 +29,12 @@ if (result?.data?.success) {
   return Astro.redirect("/lodges");
 }
 
-const createError = result?.data && !result.data.success
-  ? result.data.message
-  : result?.error
-    ? "Invalid input."
-    : null;
+const createError =
+  result?.data && !result.data.success
+    ? result.data.message
+    : result?.error
+      ? "Invalid input."
+      : null;
 const backendFieldErrors =
   result?.data && !result.data.success && result.data.fieldErrors
     ? result.data.fieldErrors
@@ -53,45 +54,55 @@ const keeperOptions = users.map((user) => ({
 <BaseLayout title="Create lodge">
   <h1>Create lodge</h1>
 
-  {usersLoadError ? (
-    <p>Unable to load users right now.</p>
-  ) : (
-    <form method="POST" action={actions.createLodge}>
-      <div>
-        <Input id="name" name="name" label="Name" required />
-        {backendFieldErrors.name && <p>{backendFieldErrors.name.join(", ")}</p>}
-      </div>
+  {
+    usersLoadError ? (
+      <p>Unable to load users right now.</p>
+    ) : (
+      <form method="POST" action={actions.createLodge}>
+        <div>
+          <Input id="name" name="name" label="Name" required />
+          {backendFieldErrors.name && (
+            <p>{backendFieldErrors.name.join(", ")}</p>
+          )}
+        </div>
 
-      <div>
-        <input id="country" name="country" type="hidden" required />
-        <Select
-          name="countrySelect"
-          label="Country"
-          placeholder="Select a country"
-          itemGroups={[{ items: countryOptions }]}
-        />
-        {backendFieldErrors.country && <p>{backendFieldErrors.country.join(", ")}</p>}
-      </div>
+        <div>
+          <input id="country" name="country" type="hidden" required />
+          <Select
+            name="countrySelect"
+            label="Country"
+            placeholder="Select a country"
+            itemGroups={[{ items: countryOptions }]}
+          />
+          {backendFieldErrors.country && (
+            <p>{backendFieldErrors.country.join(", ")}</p>
+          )}
+        </div>
 
-      <div>
-        <input id="keeperId" name="keeperId" type="hidden" required />
-        <Select
-          name="keeperSelect"
-          label="Keeper"
-          placeholder="Select a keeper"
-          itemGroups={[{ items: keeperOptions }]}
-        />
-        {backendFieldErrors.keeperId && <p>{backendFieldErrors.keeperId.join(", ")}</p>}
-      </div>
+        <div>
+          <input id="keeperId" name="keeperId" type="hidden" required />
+          <Select
+            name="keeperSelect"
+            label="Keeper"
+            placeholder="Select a keeper"
+            itemGroups={[{ items: keeperOptions }]}
+          />
+          {backendFieldErrors.keeperId && (
+            <p>{backendFieldErrors.keeperId.join(", ")}</p>
+          )}
+        </div>
 
-      {createError && <p>{createError}</p>}
+        {createError && <p>{createError}</p>}
 
-      <div class="actions">
-        <Button href="/lodges" theme="flat">Cancel</Button>
-        <Button type="submit">Create lodge</Button>
-      </div>
-    </form>
-  )}
+        <div class="actions">
+          <Button href="/lodges" theme="flat">
+            Cancel
+          </Button>
+          <Button type="submit">Create lodge</Button>
+        </div>
+      </form>
+    )
+  }
 </BaseLayout>
 
 <script>
