@@ -5,35 +5,28 @@ import {
   ValidationPipe as NestValidationPipe,
 } from '@nestjs/common';
 
-type ValidationIssue = {
-  field: string;
-  messages: string[];
-};
+type ValidationFieldErrors = Record<string, string[]>;
 
-function collectValidationIssues(
+function collectValidationFieldErrors(
   errors: ValidationError[],
-  parentPath?: string,
-): ValidationIssue[] {
-  return errors.flatMap((error) => {
+  parentPath = '',
+  fieldErrors: ValidationFieldErrors = {},
+): ValidationFieldErrors {
+  for (const error of errors) {
     const field = parentPath
       ? `${parentPath}.${error.property}`
       : error.property;
 
-    const issues: ValidationIssue[] = [];
-
     if (error.constraints) {
-      issues.push({
-        field,
-        messages: Object.values(error.constraints),
-      });
+      fieldErrors[field] = Object.values(error.constraints);
     }
 
     if (error.children?.length) {
-      issues.push(...collectValidationIssues(error.children, field));
+      collectValidationFieldErrors(error.children, field, fieldErrors);
     }
+  }
 
-    return issues;
-  });
+  return fieldErrors;
 }
 
 @Injectable()
@@ -45,8 +38,9 @@ export class RequestValidationPipe extends NestValidationPipe {
       transform: true,
       exceptionFactory: (errors: ValidationError[]) =>
         new BadRequestException({
+          code: 'VALIDATION_ERROR',
           message: 'Validation failed',
-          errors: collectValidationIssues(errors),
+          fieldErrors: collectValidationFieldErrors(errors),
         }),
     });
   }

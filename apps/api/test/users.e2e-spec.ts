@@ -69,17 +69,12 @@ describe('UsersController (e2e)', () => {
       .send({ email: 'not-an-email', role: 'admin' })
       .expect(400)
       .expect({
+        code: 'VALIDATION_ERROR',
         message: 'Validation failed',
-        errors: [
-          {
-            field: 'role',
-            messages: ['property role should not exist'],
-          },
-          {
-            field: 'email',
-            messages: ['email must be a valid email address'],
-          },
-        ],
+        fieldErrors: {
+          role: ['property role should not exist'],
+          email: ['email must be a valid email address'],
+        },
       });
   });
 });
