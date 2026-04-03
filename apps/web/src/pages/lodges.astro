@@ -1,7 +1,44 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+export const prerender = false;
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Lodge } from "../types/Lodge";
+import { getApiBaseUrl } from "../utils/getApiBaseUrl";
+
+let lodges: Lodge[] = [];
+let lodgesLoadError = false;
+
+try {
+  const lodgesResponse = await fetch(new URL("/lodges", getApiBaseUrl()));
+
+  if (!lodgesResponse.ok) {
+    lodgesLoadError = true;
+  } else {
+    lodges = (await lodgesResponse.json()) as Lodge[];
+  }
+} catch {
+  lodgesLoadError = true;
+}
 ---
 
 <BaseLayout title="Lodges">
 	<h1>Lodges</h1>
+
+	{
+		lodgesLoadError ? (
+			<p>Unable to load lodges right now.</p>
+		) : lodges.length === 0 ? (
+			<p>No lodges found.</p>
+		) : (
+			<ul>
+				{
+					lodges.map((lodge) => (
+						<li>
+							<strong>{lodge.name}</strong> <span>{lodge.country}</span>
+						</li>
+					))
+				}
+			</ul>
+		)
+	}
 </BaseLayout>
