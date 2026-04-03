@@ -81,7 +81,10 @@ const keeperOptions = users.map((user) => ({
 
       {createError && <p>{createError}</p>}
 
-      <Button type="submit">Create lodge</Button>
+      <div class="actions">
+        <Button href="/lodges" theme="flat">Cancel</Button>
+        <Button type="submit">Create lodge</Button>
+      </div>
     </form>
   )}
 </BaseLayout>
@@ -101,3 +104,11 @@ const keeperOptions = users.map((user) => ({
     }
   });
 </script>
+
+<style>
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+</style>
