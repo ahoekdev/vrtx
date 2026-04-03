@@ -1,0 +1,80 @@
+---
+export const prerender = false;
+
+import { actions } from "astro:actions";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import type { User } from "../../types/User";
+import { getApiBaseUrl } from "../../utils/getApiBaseUrl";
+
+let users: User[] = [];
+let usersLoadError = false;
+
+try {
+  const usersResponse = await fetch(new URL("/users", getApiBaseUrl()));
+
+  if (!usersResponse.ok) {
+    usersLoadError = true;
+  } else {
+    users = (await usersResponse.json()) as User[];
+  }
+} catch {
+  usersLoadError = true;
+}
+
+const result = Astro.getActionResult(actions.createLodge);
+const createError = result?.data && !result.data.success
+  ? result.data.message
+  : result?.error
+    ? "Invalid input."
+    : null;
+const backendFieldErrors =
+  result?.data && !result.data.success && result.data.fieldErrors
+    ? result.data.fieldErrors
+    : {};
+---
+
+<BaseLayout title="Create lodge">
+  <h1>Create lodge</h1>
+
+  {usersLoadError ? (
+    <p>Unable to load users right now.</p>
+  ) : (
+    <form method="POST" action={actions.createLodge}>
+      <div>
+        <label for="name">Name</label>
+        <input id="name" name="name" required />
+        {backendFieldErrors.name && <p>{backendFieldErrors.name.join(", ")}</p>}
+      </div>
+
+      <div>
+        <label for="country">Country</label>
+        <select id="country" name="country" required>
+          <option value="">Select a country</option>
+          <option value="AT">AT</option>
+          <option value="CH">CH</option>
+          <option value="DE">DE</option>
+          <option value="FR">FR</option>
+          <option value="IT">IT</option>
+          <option value="LI">LI</option>
+          <option value="SI">SI</option>
+        </select>
+        {backendFieldErrors.country && <p>{backendFieldErrors.country.join(", ")}</p>}
+      </div>
+
+      <div>
+        <label for="keeperId">Keeper</label>
+        <select id="keeperId" name="keeperId" required>
+          <option value="">Select a keeper</option>
+          {users.map((user) => (
+            <option value={user.id}>{user.email}</option>
+          ))}
+        </select>
+        {backendFieldErrors.keeperId && <p>{backendFieldErrors.keeperId.join(", ")}</p>}
+      </div>
+
+      {createError && <p>{createError}</p>}
+
+      <button type="submit">Create lodge</button>
+    </form>
+  )}
+</BaseLayout>
