@@ -2,6 +2,7 @@
 export const prerender = false;
 
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Button } from "webcoreui/astro";
 import type { Lodge } from "../types/Lodge";
 import { getApiBaseUrl } from "../utils/getApiBaseUrl";
 
@@ -22,10 +23,11 @@ try {
 ---
 
 <BaseLayout title="Lodges">
-  <h1>Lodges</h1>
+	<h1>Lodges</h1>
+	<Button href="/lodges/create">Create new lodge</Button>
 
-  {
-    lodgesLoadError ? (
+	{
+		lodgesLoadError ? (
       <p>Unable to load lodges right now.</p>
     ) : lodges.length === 0 ? (
       <p>No lodges found.</p>

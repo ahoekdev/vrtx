@@ -24,6 +24,11 @@ try {
 }
 
 const result = Astro.getActionResult(actions.createLodge);
+
+if (result?.data?.success) {
+  return Astro.redirect("/lodges");
+}
+
 const createError = result?.data && !result.data.success
   ? result.data.message
   : result?.error
