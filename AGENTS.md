@@ -38,6 +38,13 @@ The API uses Jest for both unit and e2e tests. Add unit coverage for service and
 
 Recent commits use short, imperative, lowercase subjects such as `update root package json with app related scripts`. Keep commits focused and descriptive. PRs should explain the change, note affected workspace(s), link the relevant issue when available, and include screenshots or local verification steps for UI changes.
 
+## Git Workflow Preferences
+
+When checking out an existing remote branch locally, use this sequence:
+
+1. `git fetch`
+2. `git checkout <branch-name>`
+
 ## Configuration Tips
 
 The API reads `PORT` already and planned database work documents `DATABASE_URL` in `apps/api/documentation/drizzle-orm-nestjs-setup.md`. Put local secrets in `apps/api/.env` and do not commit them.
