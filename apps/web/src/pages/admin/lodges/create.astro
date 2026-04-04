@@ -1,9 +1,12 @@
 ---
 import { CreateLodgeForm } from "../../../components/react/CreateLodgeForm";
+import { getKeepers } from "../../../data/getKeepers";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const users = await getKeepers();
 ---
 
 <BaseLayout title="Lodges">
   <h1>Create Lodge</h1>
-  <CreateLodgeForm />
+  <CreateLodgeForm keepers={users.data} />
 </BaseLayout>

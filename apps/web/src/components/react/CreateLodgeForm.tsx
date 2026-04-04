@@ -1,3 +1,5 @@
+import type { User } from "../../types/User";
+
 const alpineCountryCodes = ["AT", "CH", "DE", "FR", "IT", "LI", "SI"] as const;
 
 const countriesMap = [
@@ -10,7 +12,11 @@ const countriesMap = [
   { code: "SI", name: "Slovenia" },
 ];
 
-export function CreateLodgeForm() {
+interface CreateLodgeFormProps {
+  keepers: User[];
+}
+
+export function CreateLodgeForm({ keepers }: CreateLodgeFormProps) {
   return (
     <form className="flex flex-col gap-4">
       <input
@@ -27,6 +33,17 @@ export function CreateLodgeForm() {
         {countriesMap.map((country) => (
           <option key={country.code} value={country.code}>
             {country.name}
+          </option>
+        ))}
+      </select>
+
+      <select
+        name="keeperId"
+        className="border border-gray-300 px-2 rounded-md w-full h-10"
+      >
+        {keepers.map((keeper) => (
+          <option key={keeper.id} value={keeper.id}>
+            {keeper.email}
           </option>
         ))}
       </select>
