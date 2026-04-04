@@ -1,8 +1,24 @@
-<header>
-  <nav aria-label="Primary">
-    <a href="/">Home</a>
-    <a href="/lodges">Lodges</a>
-    <a href="/tours">Tours</a>
-    <a href="/admin">Admin</a>
+---
+const links = [
+  { href: "/lodges", label: "Lodges" },
+  { href: "/tours", label: "Tours" },
+  { href: "/admin", label: "Admin" },
+];
+---
+
+<header class="bg-green-900 text-white p-4">
+  <nav class="flex justify-between">
+    <a href="/" class="hover:underline"> VRTX </a>
+    <ul>
+      {
+        links.map((link) => (
+          <li class="inline-block mr-4">
+            <a href={link.href} class="hover:underline">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </nav>
 </header>
