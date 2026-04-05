@@ -1,0 +1,32 @@
+---
+export const prerender = false;
+
+import { getLodges } from "../../../data/getLodges";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const { data, error } = await getLodges();
+---
+
+<BaseLayout title="Manage Lodges">
+  <h1>Manage Lodges</h1>
+
+  <p>
+    <a href="/admin/lodges/create">Create Lodge</a>
+  </p>
+
+  {
+    error ? (
+      <p>Unable to load lodges right now.</p>
+    ) : data.length === 0 ? (
+      <p>No lodges found.</p>
+    ) : (
+      <ul>
+        {data.map((lodge) => (
+          <li>
+            <strong>{lodge.name}</strong> <span>{lodge.country}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>
