@@ -1,6 +1,7 @@
 import { actions } from "astro:actions";
 import { useState } from "react";
-import type { Lodge } from "../../../types/Lodge";
+import type { Lodge } from "../../../../types/Lodge";
+import { TrashIcon } from "../../icons/TrashIcon";
 
 interface LodgeListProps {
   lodges: Lodge[];
@@ -10,18 +11,6 @@ type DeleteState = {
   pendingId: string | null;
   errorMessage: string | null;
 };
-
-function getDeleteErrorMessage(code: string | undefined) {
-  if (code === "NOT_FOUND") {
-    return "This lodge no longer exists.";
-  }
-
-  if (code === "CONFLICT") {
-    return "This lodge cannot be deleted while it is still in use.";
-  }
-
-  return "Unable to delete this lodge right now.";
-}
 
 export function LodgeList({ lodges }: LodgeListProps) {
   const [items, setItems] = useState(lodges);
@@ -78,13 +67,25 @@ export function LodgeList({ lodges }: LodgeListProps) {
               type="button"
               onClick={() => void handleDelete(lodge.id)}
               disabled={isDeleting}
-              className="border bg-red-50 rounded-md px-3 py-2 text-red-800 disabled:text-gray-800 disabled:bg-gray-50"
+              className="border bg-red-50 rounded-md px-4 py-2 text-red-800 hover:opacity-80 transition-opacity cursor-pointer disabled:text-gray-800 disabled:bg-gray-50"
             >
-              {deleteState.pendingId === lodge.id ? "Deleting..." : "Delete"}
+              <TrashIcon />
             </button>
           </li>
         ))}
       </ul>
     </>
   );
+}
+
+function getDeleteErrorMessage(code: string | undefined) {
+  if (code === "NOT_FOUND") {
+    return "This lodge no longer exists.";
+  }
+
+  if (code === "CONFLICT") {
+    return "This lodge cannot be deleted while it is still in use.";
+  }
+
+  return "Unable to delete this lodge right now.";
 }

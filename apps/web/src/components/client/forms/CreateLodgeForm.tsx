@@ -1,11 +1,11 @@
 import { actions } from "astro:actions";
 import { FormProvider, useForm } from "react-hook-form";
-import type { User } from "../../types/User";
+import type { User } from "../../../types/User";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "astro/zod";
-import { TextInput } from "../client/form/TextInput";
-import { SelectInput } from "../client/form/SelectInput";
-import { Form } from "../client/form/Form";
+import { TextInput } from "../form/TextInput";
+import { SelectInput } from "../form/SelectInput";
+import { Form } from "../form/Form";
 
 const countriesMap = [
   { code: "AT", name: "Austria" },

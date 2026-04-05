@@ -2,6 +2,10 @@
 
 @layer utilities {
   h1 {
-    @apply text-2xl font-bold mb-2;
+    @apply text-2xl font-bold mb-6;
+  }
+
+  h3 {
+    @apply text-lg font-medium mb-2;
   }
 }

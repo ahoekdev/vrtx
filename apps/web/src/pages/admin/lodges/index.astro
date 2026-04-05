@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import { getLodges } from "../../../data/getLodges";
-import { LodgeList } from "../../../components/admin/lodges/LodgeList";
+import { LodgeList } from "../../../components/client/admin/lodges/LodgeList";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 const { data, error } = await getLodges();
@@ -11,15 +11,22 @@ const { data, error } = await getLodges();
 <BaseLayout title="Manage Lodges">
   <h1>Manage Lodges</h1>
 
-  <p>
-    <a href="/admin/lodges/create">Create Lodge</a>
-  </p>
+  <h3>Actions</h3>
+  <div class="mb-2 border rounded-md border-gray-100 p-4">
+    <a
+      class="bg-green-50 text-green-800 px-4 py-2 border rounded-md hover:opacity-80 transition-opacity inline-block"
+      href="/admin/lodges/create">Create Lodge</a
+    >
+  </div>
 
   {
     error ? (
       <p>Unable to load lodges right now.</p>
     ) : (
-      <LodgeList lodges={data} client:load />
+      <>
+        <h3>Lodges</h3>
+        <LodgeList lodges={data} client:load />
+      </>
     )
   }
 </BaseLayout>
