@@ -1,7 +1,7 @@
 import { actions } from "astro:actions";
 import { useState } from "react";
 import type { Lodge } from "../../../../types/Lodge";
-import { TrashIcon } from "../../icons/TrashIcon";
+import { RiDeleteBinLine } from "@remixicon/react";
 
 interface LodgeListProps {
   lodges: Lodge[];
@@ -69,7 +69,7 @@ export function LodgeList({ lodges }: LodgeListProps) {
               disabled={isDeleting}
               className="border bg-red-50 rounded-md px-4 py-2 text-red-800 hover:opacity-80 transition-opacity cursor-pointer disabled:text-gray-800 disabled:bg-gray-50"
             >
-              <TrashIcon />
+              <RiDeleteBinLine size={16} />
             </button>
           </li>
         ))}

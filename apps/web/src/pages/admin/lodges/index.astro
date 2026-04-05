@@ -4,6 +4,7 @@ export const prerender = false;
 import { getLodges } from "../../../data/getLodges";
 import { LodgeList } from "../../../components/client/admin/lodges/LodgeList";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { RiAddLine } from "@remixicon/react";
 
 const { data, error } = await getLodges();
 ---
@@ -15,8 +16,10 @@ const { data, error } = await getLodges();
   <div class="mb-2 border rounded-md border-gray-100 p-4">
     <a
       class="bg-green-50 text-green-800 px-4 py-2 border rounded-md hover:opacity-80 transition-opacity inline-block"
-      href="/admin/lodges/create">Create Lodge</a
+      href="/admin/lodges/create"
     >
+      <RiAddLine size={16} />
+    </a>
   </div>
 
   {
