@@ -1,4 +1,4 @@
-import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { users } from './users.schema';
 
 export const lodges = pgTable('lodges', {
@@ -9,4 +9,5 @@ export const lodges = pgTable('lodges', {
     .notNull()
     .references(() => users.id, { onDelete: 'restrict' }),
   slug: text('slug').notNull().unique(),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
 });

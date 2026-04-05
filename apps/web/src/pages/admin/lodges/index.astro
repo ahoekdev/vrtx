@@ -1,0 +1,25 @@
+---
+export const prerender = false;
+
+import { getLodges } from "../../../data/getLodges";
+import { LodgeList } from "../../../components/admin/lodges/LodgeList";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+
+const { data, error } = await getLodges();
+---
+
+<BaseLayout title="Manage Lodges">
+  <h1>Manage Lodges</h1>
+
+  <p>
+    <a href="/admin/lodges/create">Create Lodge</a>
+  </p>
+
+  {
+    error ? (
+      <p>Unable to load lodges right now.</p>
+    ) : (
+      <LodgeList lodges={data} client:load />
+    )
+  }
+</BaseLayout>
