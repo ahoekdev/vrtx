@@ -8,6 +8,7 @@ type DatabaseServerMock = {
   db: {
     select?: jest.Mock;
     insert?: jest.Mock;
+    update?: jest.Mock;
   };
   onModuleDestroy: jest.Mock;
 };
