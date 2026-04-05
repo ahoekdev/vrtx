@@ -2,6 +2,7 @@
 export const prerender = false;
 
 import { getLodges } from "../../../data/getLodges";
+import { LodgeList } from "../../../components/admin/lodges/LodgeList";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 
 const { data, error } = await getLodges();
@@ -17,16 +18,8 @@ const { data, error } = await getLodges();
   {
     error ? (
       <p>Unable to load lodges right now.</p>
-    ) : data.length === 0 ? (
-      <p>No lodges found.</p>
     ) : (
-      <ul>
-        {data.map((lodge) => (
-          <li>
-            <strong>{lodge.name}</strong> <span>{lodge.country}</span>
-          </li>
-        ))}
-      </ul>
+      <LodgeList lodges={data} client:load />
     )
   }
 </BaseLayout>
