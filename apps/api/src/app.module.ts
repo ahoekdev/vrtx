@@ -11,6 +11,13 @@ import { TourStagesModule } from './tour-stages/tour-stages.module';
 import { ToursModule } from './tours/tours.module';
 import { UsersModule } from './users/users.module';
 
+const databaseEnvKeys = Object.keys(process.env)
+  .filter((key) => key.includes('DATABASE'))
+  .slice(0, 10);
+
+console.log('DATABASE_URL present:', Boolean(process.env.DATABASE_URL));
+console.log('database env keys:', databaseEnvKeys);
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
