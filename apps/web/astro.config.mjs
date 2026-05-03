@@ -12,4 +12,7 @@ export default defineConfig({
   },
   vite: { plugins: [tailwindcss()] },
   integrations: [react()],
+  server: {
+    host: "0.0.0.0",
+  },
 });
