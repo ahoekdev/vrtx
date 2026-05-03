@@ -15,7 +15,17 @@ const databaseEnvKeys = Object.keys(process.env)
   .filter((key) => key.includes('DATABASE'))
   .slice(0, 10);
 
+console.log('Railway runtime identity:', {
+  service: process.env.RAILWAY_SERVICE_NAME,
+  environment: process.env.RAILWAY_ENVIRONMENT_NAME,
+  project: process.env.RAILWAY_PROJECT_NAME,
+  deploymentId: process.env.RAILWAY_DEPLOYMENT_ID,
+});
 console.log('DATABASE_URL present:', Boolean(process.env.DATABASE_URL));
+console.log(
+  'RAILWAY_VAR_DIAGNOSTIC present:',
+  Boolean(process.env.RAILWAY_VAR_DIAGNOSTIC),
+);
 console.log('database env keys:', databaseEnvKeys);
 
 @Module({
