@@ -2,7 +2,6 @@ import type { Lodge } from "../types/Lodge";
 import { getApiBaseUrl } from "../utils/getApiBaseUrl";
 
 export async function getLodges() {
-  console.log(getApiBaseUrl());
   try {
     const res = await fetch(new URL("/lodges", getApiBaseUrl()));
 
