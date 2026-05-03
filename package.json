@@ -1,11 +1,12 @@
 {
   "name": "vrtx",
+  "private": true,
   "workspaces": [
     "apps/api",
     "apps/web"
   ],
   "scripts": {
-    "web:dev": "npm run dev --workspace=web",
-    "api:dev": "npm run start:dev --workspace=api"
+    "dev:web": "npm run dev -w web",
+    "dev:api": "npm run start:dev -w api"
   }
 }
